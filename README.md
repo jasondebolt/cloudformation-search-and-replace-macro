@@ -1,5 +1,9 @@
-# cloudformation-macros-examples
-Examples of CloudFormation Macros
+# cloudformation-search-and-replace-macro
+A recursive search and replace CloudFormation macro that works for both keys and values.
+
+## Caveats
+- This macro hasn't been well tested and shouldn't be used in production.
+- Used for demo purposes only.
 
 ## What does this project do?
 - Demonstrates using CloudFormation macros to recursively search and replace values in a CloudFormation template.
