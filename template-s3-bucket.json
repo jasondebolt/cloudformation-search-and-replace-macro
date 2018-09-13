@@ -3,10 +3,10 @@
   "Description": "Demonstrates how to use CloudFormation macros to recursively replace both property names and values within a CloudFormation template (CloudFormation parameters cannot be altered, however).",
   "Transform" : ["ExampleLambdaMacro"],
   "Resources": {
-    "PHX_MACRO_RANDOM_7": {
+    "EXAMPLE_MACRO_RANDOM_7": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "PHX_MACRO_PROJECT_NAME-PHX_MACRO_RANDOM_7"
+        "BucketName": "EXAMPLE_MACRO_PROJECT_NAME-EXAMPLE_MACRO_RANDOM_7"
       }
     }
   }

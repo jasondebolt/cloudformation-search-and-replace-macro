@@ -59,9 +59,9 @@ def lambda_handler(event, context):
 
     fragment = event['fragment']
 
-    macro_value_replace(fragment, old='PHX_MACRO_PROJECT_NAME', new=os.environ['PHX_MACRO_PROJECT_NAME'])
-    macro_value_replace(fragment, old='PHX_MACRO_RANDOM_7', new=random_lowercase_string(7))
-    macro_key_replace(fragment, old='PHX_MACRO_RANDOM_7', new=random_lowercase_string(7))
+    macro_value_replace(fragment, old='EXAMPLE_MACRO_PROJECT_NAME', new=os.environ['EXAMPLE_MACRO_PROJECT_NAME'])
+    macro_value_replace(fragment, old='EXAMPLE_MACRO_RANDOM_7', new=random_lowercase_string(7))
+    macro_key_replace(fragment, old='EXAMPLE_MACRO_RANDOM_7', new=random_lowercase_string(7))
 
     print('New Fragment')
     print(fragment)

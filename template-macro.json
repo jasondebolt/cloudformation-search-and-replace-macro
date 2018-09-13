@@ -85,7 +85,7 @@
         "Role": {"Fn::GetAtt": ["IAMRole", "Arn"]},
         "Environment": {
           "Variables": {
-            "PHX_MACRO_PROJECT_NAME": {"Ref": "ProjectName"}
+            "EXAMPLE_MACRO_PROJECT_NAME": {"Ref": "ProjectName"}
           }
         },
         "Code": {

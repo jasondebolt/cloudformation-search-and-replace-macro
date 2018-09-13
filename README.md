@@ -8,7 +8,7 @@ A recursive search and replace CloudFormation macro that works for both keys and
 ## What does this project do?
 - Demonstrates using CloudFormation macros to recursively search and replace values in a CloudFormation template.
 - Dynamically changes both the logical ID and name of an S3 bucket using a Lambda Macro.
-- See template-s3-bucket.json for search values of PHX_MACRO_RANDOM_7 and PHX_MACRO_PROJECT_NAME.
+- See template-s3-bucket.json for search values of EXAMPLE_MACRO_RANDOM_7 and EXAMPLE_MACRO_PROJECT_NAME.
 - See /lambda/macros/lambda_function.py for replacement values.
 
 ## Requirements
@@ -29,6 +29,6 @@ or
 - Click on the s3 bucket stack that was created.
 - Click on the Template tab.
 - Click View original template.
-- Take note of the PHX_MACRO_RANDOM_7 and PHX_MACRO_PROJECT_NAME values in the unprocessed template.
+- Take note of the EXAMPLE_MACRO_RANDOM_7 and EXAMPLE_MACRO_PROJECT_NAME values in the unprocessed template.
 - Click View processed template.
-- Notice that both the PHX_MACRO_RANDOM_7 and PHX_MACRO_PROJECT_NAME values were replaced by new values.
+- Notice that both the EXAMPLE_MACRO_RANDOM_7 and EXAMPLE_MACRO_PROJECT_NAME values were replaced by new values.
