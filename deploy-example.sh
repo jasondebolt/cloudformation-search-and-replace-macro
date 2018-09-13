@@ -16,7 +16,7 @@ fi
 # Convert create/update to uppercase
 OP=$(echo $1 | tr '/a-z/' '/A-Z/')
 
-PROJECT_NAME='blah-848184'
+PROJECT_NAME='enter-lowercase-project-name-here'
 LAMBDA_BUCKET_NAME=$PROJECT_NAME-lambda
 MACRO_STACK_NAME=$PROJECT_NAME-macro
 S3_STACK_NAME=$PROJECT_NAME-s3-bucket
