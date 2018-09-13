@@ -1,0 +1,104 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description" : "Deploys a CloudFormation Macro Lambda for template post-processing",
+  "Parameters": {
+    "ProjectName": {
+      "Description": "The name of your project.",
+      "MinLength": "1",
+      "MaxLength": "20",
+      "AllowedPattern": "^[a-z]+[\\-a-z0-9]*[a-z0-9]+",
+      "ConstraintDescription": "User all lowercase, dashes, or numbers (demo-project) between 1 and 20 characters in length. Must not start with a number, and must not start or end with a dash.",
+      "Type": "String"
+    },
+    "LambdaBucketName": {
+      "Description": "A unique name for an S3 bucket to store your Lambda code.",
+      "AllowedPattern": "^[a-z]+[\\-a-z0-9]*[a-z0-9]+",
+      "Type": "String"
+    },
+    "Version": {
+      "Description": "A unique name for an S3 bucket to store your Lambda code.",
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "ExampleLambdaMacro": {
+      "Type" : "AWS::CloudFormation::Macro",
+      "DependsOn": ["LambdaMacro", "IAMRole"],
+      "Properties" : {
+        "Name" : "ExampleLambdaMacro",
+        "Description" : "Lambda CloudFormation Macro",
+        "FunctionName" : {"Fn::GetAtt": ["LambdaMacro", "Arn"]},
+        "LogGroupName" : {"Ref": "LogGroup"},
+        "LogRoleARN" : {"Fn::GetAtt": ["IAMRole", "Arn"]}
+      }
+    },
+    "LogGroup": {
+      "Type" : "AWS::Logs::LogGroup",
+      "Properties" : {
+        "LogGroupName" : {"Fn::Join": ["", [
+          {"Ref": "ProjectName"},
+          "LambdaMacroLogGroup"
+        ]]},
+        "RetentionInDays" : 120
+      }
+    },
+    "IAMRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2008-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Path":"/",
+        "Policies":[
+          {
+            "PolicyName":"lambda-macro",
+            "PolicyDocument":{
+              "Statement":[
+                {
+                  "Effect":"Allow",
+                  "Action": [
+                      "logs:*",
+                      "cloudformation:*"
+                  ],
+                  "Resource":"*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "LambdaMacro": {
+      "Type": "AWS::Lambda::Function",
+      "DependsOn": ["IAMRole"],
+      "Properties": {
+        "Handler": "lambda_function.lambda_handler",
+        "Role": {"Fn::GetAtt": ["IAMRole", "Arn"]},
+        "Environment": {
+          "Variables": {
+            "PHX_MACRO_PROJECT_NAME": {"Ref": "ProjectName"}
+          }
+        },
+        "Code": {
+          "S3Bucket" : {"Ref": "LambdaBucketName"},
+          "S3Key" : {"Fn::Join": ["/", [
+            {"Ref": "Version"},
+            "macro",
+            "lambda_function.zip"
+          ]]}
+        },
+        "Runtime": "python3.6",
+        "Timeout": "25"
+      }
+    }
+  }
+}
